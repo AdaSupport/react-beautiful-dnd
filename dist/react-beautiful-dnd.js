@@ -1,481 +1,12 @@
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('react')) :
-	typeof define === 'function' && define.amd ? define(['exports', 'react'], factory) :
-	(factory((global.ReactBeautifulDnd = {}),global.React));
-}(this, (function (exports,React) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@babel/runtime/helpers/esm/extends'), require('@babel/runtime/helpers/esm/inheritsLoose'), require('react')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@babel/runtime/helpers/esm/extends', '@babel/runtime/helpers/esm/inheritsLoose', 'react'], factory) :
+	(factory((global.ReactBeautifulDnd = {}),null,null,global.React));
+}(this, (function (exports,_extends,_inheritsLoose,React) { 'use strict';
 
+	_extends = _extends && _extends.hasOwnProperty('default') ? _extends['default'] : _extends;
+	_inheritsLoose = _inheritsLoose && _inheritsLoose.hasOwnProperty('default') ? _inheritsLoose['default'] : _inheritsLoose;
 	var React__default = 'default' in React ? React['default'] : React;
-
-	var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
-
-	function unwrapExports (x) {
-		return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
-	}
-
-	function createCommonjsModule(fn, module) {
-		return module = { exports: {} }, fn(module, module.exports), module.exports;
-	}
-
-	var _global = createCommonjsModule(function (module) {
-	// https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
-	var global = module.exports = typeof window != 'undefined' && window.Math == Math
-	  ? window : typeof self != 'undefined' && self.Math == Math ? self
-	  // eslint-disable-next-line no-new-func
-	  : Function('return this')();
-	if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
-	});
-
-	var _core = createCommonjsModule(function (module) {
-	var core = module.exports = { version: '2.5.7' };
-	if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
-	});
-	var _core_1 = _core.version;
-
-	var _aFunction = function (it) {
-	  if (typeof it != 'function') throw TypeError(it + ' is not a function!');
-	  return it;
-	};
-
-	// optional / simple context binding
-
-	var _ctx = function (fn, that, length) {
-	  _aFunction(fn);
-	  if (that === undefined) return fn;
-	  switch (length) {
-	    case 1: return function (a) {
-	      return fn.call(that, a);
-	    };
-	    case 2: return function (a, b) {
-	      return fn.call(that, a, b);
-	    };
-	    case 3: return function (a, b, c) {
-	      return fn.call(that, a, b, c);
-	    };
-	  }
-	  return function (/* ...args */) {
-	    return fn.apply(that, arguments);
-	  };
-	};
-
-	var _isObject = function (it) {
-	  return typeof it === 'object' ? it !== null : typeof it === 'function';
-	};
-
-	var _anObject = function (it) {
-	  if (!_isObject(it)) throw TypeError(it + ' is not an object!');
-	  return it;
-	};
-
-	var _fails = function (exec) {
-	  try {
-	    return !!exec();
-	  } catch (e) {
-	    return true;
-	  }
-	};
-
-	// Thank's IE8 for his funny defineProperty
-	var _descriptors = !_fails(function () {
-	  return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
-	});
-
-	var document$1 = _global.document;
-	// typeof document.createElement is 'object' in old IE
-	var is = _isObject(document$1) && _isObject(document$1.createElement);
-	var _domCreate = function (it) {
-	  return is ? document$1.createElement(it) : {};
-	};
-
-	var _ie8DomDefine = !_descriptors && !_fails(function () {
-	  return Object.defineProperty(_domCreate('div'), 'a', { get: function () { return 7; } }).a != 7;
-	});
-
-	// 7.1.1 ToPrimitive(input [, PreferredType])
-
-	// instead of the ES6 spec version, we didn't implement @@toPrimitive case
-	// and the second argument - flag - preferred type is a string
-	var _toPrimitive = function (it, S) {
-	  if (!_isObject(it)) return it;
-	  var fn, val;
-	  if (S && typeof (fn = it.toString) == 'function' && !_isObject(val = fn.call(it))) return val;
-	  if (typeof (fn = it.valueOf) == 'function' && !_isObject(val = fn.call(it))) return val;
-	  if (!S && typeof (fn = it.toString) == 'function' && !_isObject(val = fn.call(it))) return val;
-	  throw TypeError("Can't convert object to primitive value");
-	};
-
-	var dP = Object.defineProperty;
-
-	var f = _descriptors ? Object.defineProperty : function defineProperty(O, P, Attributes) {
-	  _anObject(O);
-	  P = _toPrimitive(P, true);
-	  _anObject(Attributes);
-	  if (_ie8DomDefine) try {
-	    return dP(O, P, Attributes);
-	  } catch (e) { /* empty */ }
-	  if ('get' in Attributes || 'set' in Attributes) throw TypeError('Accessors not supported!');
-	  if ('value' in Attributes) O[P] = Attributes.value;
-	  return O;
-	};
-
-	var _objectDp = {
-		f: f
-	};
-
-	var _propertyDesc = function (bitmap, value) {
-	  return {
-	    enumerable: !(bitmap & 1),
-	    configurable: !(bitmap & 2),
-	    writable: !(bitmap & 4),
-	    value: value
-	  };
-	};
-
-	var _hide = _descriptors ? function (object, key, value) {
-	  return _objectDp.f(object, key, _propertyDesc(1, value));
-	} : function (object, key, value) {
-	  object[key] = value;
-	  return object;
-	};
-
-	var hasOwnProperty = {}.hasOwnProperty;
-	var _has = function (it, key) {
-	  return hasOwnProperty.call(it, key);
-	};
-
-	var PROTOTYPE = 'prototype';
-
-	var $export = function (type, name, source) {
-	  var IS_FORCED = type & $export.F;
-	  var IS_GLOBAL = type & $export.G;
-	  var IS_STATIC = type & $export.S;
-	  var IS_PROTO = type & $export.P;
-	  var IS_BIND = type & $export.B;
-	  var IS_WRAP = type & $export.W;
-	  var exports = IS_GLOBAL ? _core : _core[name] || (_core[name] = {});
-	  var expProto = exports[PROTOTYPE];
-	  var target = IS_GLOBAL ? _global : IS_STATIC ? _global[name] : (_global[name] || {})[PROTOTYPE];
-	  var key, own, out;
-	  if (IS_GLOBAL) source = name;
-	  for (key in source) {
-	    // contains in native
-	    own = !IS_FORCED && target && target[key] !== undefined;
-	    if (own && _has(exports, key)) continue;
-	    // export native or passed
-	    out = own ? target[key] : source[key];
-	    // prevent global pollution for namespaces
-	    exports[key] = IS_GLOBAL && typeof target[key] != 'function' ? source[key]
-	    // bind timers to global for call from export context
-	    : IS_BIND && own ? _ctx(out, _global)
-	    // wrap global constructors for prevent change them in library
-	    : IS_WRAP && target[key] == out ? (function (C) {
-	      var F = function (a, b, c) {
-	        if (this instanceof C) {
-	          switch (arguments.length) {
-	            case 0: return new C();
-	            case 1: return new C(a);
-	            case 2: return new C(a, b);
-	          } return new C(a, b, c);
-	        } return C.apply(this, arguments);
-	      };
-	      F[PROTOTYPE] = C[PROTOTYPE];
-	      return F;
-	    // make static versions for prototype methods
-	    })(out) : IS_PROTO && typeof out == 'function' ? _ctx(Function.call, out) : out;
-	    // export proto methods to core.%CONSTRUCTOR%.methods.%NAME%
-	    if (IS_PROTO) {
-	      (exports.virtual || (exports.virtual = {}))[key] = out;
-	      // export proto methods to core.%CONSTRUCTOR%.prototype.%NAME%
-	      if (type & $export.R && expProto && !expProto[key]) _hide(expProto, key, out);
-	    }
-	  }
-	};
-	// type bitmap
-	$export.F = 1;   // forced
-	$export.G = 2;   // global
-	$export.S = 4;   // static
-	$export.P = 8;   // proto
-	$export.B = 16;  // bind
-	$export.W = 32;  // wrap
-	$export.U = 64;  // safe
-	$export.R = 128; // real proto method for `library`
-	var _export = $export;
-
-	var toString = {}.toString;
-
-	var _cof = function (it) {
-	  return toString.call(it).slice(8, -1);
-	};
-
-	// fallback for non-array-like ES3 and non-enumerable old V8 strings
-
-	// eslint-disable-next-line no-prototype-builtins
-	var _iobject = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
-	  return _cof(it) == 'String' ? it.split('') : Object(it);
-	};
-
-	// 7.2.1 RequireObjectCoercible(argument)
-	var _defined = function (it) {
-	  if (it == undefined) throw TypeError("Can't call method on  " + it);
-	  return it;
-	};
-
-	// to indexed object, toObject with fallback for non-array-like ES3 strings
-
-
-	var _toIobject = function (it) {
-	  return _iobject(_defined(it));
-	};
-
-	// 7.1.4 ToInteger
-	var ceil = Math.ceil;
-	var floor = Math.floor;
-	var _toInteger = function (it) {
-	  return isNaN(it = +it) ? 0 : (it > 0 ? floor : ceil)(it);
-	};
-
-	// 7.1.15 ToLength
-
-	var min = Math.min;
-	var _toLength = function (it) {
-	  return it > 0 ? min(_toInteger(it), 0x1fffffffffffff) : 0; // pow(2, 53) - 1 == 9007199254740991
-	};
-
-	var max = Math.max;
-	var min$1 = Math.min;
-	var _toAbsoluteIndex = function (index, length) {
-	  index = _toInteger(index);
-	  return index < 0 ? max(index + length, 0) : min$1(index, length);
-	};
-
-	// false -> Array#indexOf
-	// true  -> Array#includes
-
-
-
-	var _arrayIncludes = function (IS_INCLUDES) {
-	  return function ($this, el, fromIndex) {
-	    var O = _toIobject($this);
-	    var length = _toLength(O.length);
-	    var index = _toAbsoluteIndex(fromIndex, length);
-	    var value;
-	    // Array#includes uses SameValueZero equality algorithm
-	    // eslint-disable-next-line no-self-compare
-	    if (IS_INCLUDES && el != el) while (length > index) {
-	      value = O[index++];
-	      // eslint-disable-next-line no-self-compare
-	      if (value != value) return true;
-	    // Array#indexOf ignores holes, Array#includes - not
-	    } else for (;length > index; index++) if (IS_INCLUDES || index in O) {
-	      if (O[index] === el) return IS_INCLUDES || index || 0;
-	    } return !IS_INCLUDES && -1;
-	  };
-	};
-
-	var _library = true;
-
-	var _shared = createCommonjsModule(function (module) {
-	var SHARED = '__core-js_shared__';
-	var store = _global[SHARED] || (_global[SHARED] = {});
-
-	(module.exports = function (key, value) {
-	  return store[key] || (store[key] = value !== undefined ? value : {});
-	})('versions', []).push({
-	  version: _core.version,
-	  mode: _library ? 'pure' : 'global',
-	  copyright: '© 2018 Denis Pushkarev (zloirock.ru)'
-	});
-	});
-
-	var id = 0;
-	var px = Math.random();
-	var _uid = function (key) {
-	  return 'Symbol('.concat(key === undefined ? '' : key, ')_', (++id + px).toString(36));
-	};
-
-	var shared = _shared('keys');
-
-	var _sharedKey = function (key) {
-	  return shared[key] || (shared[key] = _uid(key));
-	};
-
-	var arrayIndexOf = _arrayIncludes(false);
-	var IE_PROTO = _sharedKey('IE_PROTO');
-
-	var _objectKeysInternal = function (object, names) {
-	  var O = _toIobject(object);
-	  var i = 0;
-	  var result = [];
-	  var key;
-	  for (key in O) if (key != IE_PROTO) _has(O, key) && result.push(key);
-	  // Don't enum bug & hidden keys
-	  while (names.length > i) if (_has(O, key = names[i++])) {
-	    ~arrayIndexOf(result, key) || result.push(key);
-	  }
-	  return result;
-	};
-
-	// IE 8- don't enum bug keys
-	var _enumBugKeys = (
-	  'constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf'
-	).split(',');
-
-	// 19.1.2.14 / 15.2.3.14 Object.keys(O)
-
-
-
-	var _objectKeys = Object.keys || function keys(O) {
-	  return _objectKeysInternal(O, _enumBugKeys);
-	};
-
-	var f$1 = Object.getOwnPropertySymbols;
-
-	var _objectGops = {
-		f: f$1
-	};
-
-	var f$2 = {}.propertyIsEnumerable;
-
-	var _objectPie = {
-		f: f$2
-	};
-
-	// 7.1.13 ToObject(argument)
-
-	var _toObject = function (it) {
-	  return Object(_defined(it));
-	};
-
-	// 19.1.2.1 Object.assign(target, source, ...)
-
-
-
-
-
-	var $assign = Object.assign;
-
-	// should work with symbols and should have deterministic property order (V8 bug)
-	var _objectAssign = !$assign || _fails(function () {
-	  var A = {};
-	  var B = {};
-	  // eslint-disable-next-line no-undef
-	  var S = Symbol();
-	  var K = 'abcdefghijklmnopqrst';
-	  A[S] = 7;
-	  K.split('').forEach(function (k) { B[k] = k; });
-	  return $assign({}, A)[S] != 7 || Object.keys($assign({}, B)).join('') != K;
-	}) ? function assign(target, source) { // eslint-disable-line no-unused-vars
-	  var T = _toObject(target);
-	  var aLen = arguments.length;
-	  var index = 1;
-	  var getSymbols = _objectGops.f;
-	  var isEnum = _objectPie.f;
-	  while (aLen > index) {
-	    var S = _iobject(arguments[index++]);
-	    var keys = getSymbols ? _objectKeys(S).concat(getSymbols(S)) : _objectKeys(S);
-	    var length = keys.length;
-	    var j = 0;
-	    var key;
-	    while (length > j) if (isEnum.call(S, key = keys[j++])) T[key] = S[key];
-	  } return T;
-	} : $assign;
-
-	// 19.1.3.1 Object.assign(target, source)
-
-
-	_export(_export.S + _export.F, 'Object', { assign: _objectAssign });
-
-	var assign = _core.Object.assign;
-
-	var assign$1 = assign;
-
-	function _extends() {
-	  _extends = assign$1 || function (target) {
-	    for (var i = 1; i < arguments.length; i++) {
-	      var source = arguments[i];
-
-	      for (var key in source) {
-	        if (Object.prototype.hasOwnProperty.call(source, key)) {
-	          target[key] = source[key];
-	        }
-	      }
-	    }
-
-	    return target;
-	  };
-
-	  return _extends.apply(this, arguments);
-	}
-
-	var _objectDps = _descriptors ? Object.defineProperties : function defineProperties(O, Properties) {
-	  _anObject(O);
-	  var keys = _objectKeys(Properties);
-	  var length = keys.length;
-	  var i = 0;
-	  var P;
-	  while (length > i) _objectDp.f(O, P = keys[i++], Properties[P]);
-	  return O;
-	};
-
-	var document$2 = _global.document;
-	var _html = document$2 && document$2.documentElement;
-
-	// 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
-
-
-
-	var IE_PROTO$1 = _sharedKey('IE_PROTO');
-	var Empty = function () { /* empty */ };
-	var PROTOTYPE$1 = 'prototype';
-
-	// Create object with fake `null` prototype: use iframe Object with cleared prototype
-	var createDict = function () {
-	  // Thrash, waste and sodomy: IE GC bug
-	  var iframe = _domCreate('iframe');
-	  var i = _enumBugKeys.length;
-	  var lt = '<';
-	  var gt = '>';
-	  var iframeDocument;
-	  iframe.style.display = 'none';
-	  _html.appendChild(iframe);
-	  iframe.src = 'javascript:'; // eslint-disable-line no-script-url
-	  // createDict = iframe.contentWindow.Object;
-	  // html.removeChild(iframe);
-	  iframeDocument = iframe.contentWindow.document;
-	  iframeDocument.open();
-	  iframeDocument.write(lt + 'script' + gt + 'document.F=Object' + lt + '/script' + gt);
-	  iframeDocument.close();
-	  createDict = iframeDocument.F;
-	  while (i--) delete createDict[PROTOTYPE$1][_enumBugKeys[i]];
-	  return createDict();
-	};
-
-	var _objectCreate = Object.create || function create(O, Properties) {
-	  var result;
-	  if (O !== null) {
-	    Empty[PROTOTYPE$1] = _anObject(O);
-	    result = new Empty();
-	    Empty[PROTOTYPE$1] = null;
-	    // add "__proto__" for Object.getPrototypeOf polyfill
-	    result[IE_PROTO$1] = O;
-	  } else result = createDict();
-	  return Properties === undefined ? result : _objectDps(result, Properties);
-	};
-
-	// 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
-	_export(_export.S, 'Object', { create: _objectCreate });
-
-	var $Object = _core.Object;
-	var create = function create(P, D) {
-	  return $Object.create(P, D);
-	};
-
-	var create$1 = create;
-
-	function _inheritsLoose(subClass, superClass) {
-	  subClass.prototype = create$1(superClass.prototype);
-	  subClass.prototype.constructor = subClass;
-	  subClass.__proto__ = superClass;
-	}
 
 	function symbolObservablePonyfill(root) {
 		var result;
@@ -519,29 +50,16 @@
 	 * If the current state is undefined, you must return the initial state.
 	 * Do not reference these action types directly in your code.
 	 */
+	var randomString = function randomString() {
+	  return Math.random().toString(36).substring(7).split('').join('.');
+	};
+
 	var ActionTypes = {
-	  INIT: '@@redux/INIT' + Math.random().toString(36).substring(7).split('').join('.'),
-	  REPLACE: '@@redux/REPLACE' + Math.random().toString(36).substring(7).split('').join('.')
-	};
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
-	  return typeof obj;
-	} : function (obj) {
-	  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-	};
-
-	var _extends$1 = Object.assign || function (target) {
-	  for (var i = 1; i < arguments.length; i++) {
-	    var source = arguments[i];
-
-	    for (var key in source) {
-	      if (Object.prototype.hasOwnProperty.call(source, key)) {
-	        target[key] = source[key];
-	      }
-	    }
+	  INIT: "@@redux/INIT" + randomString(),
+	  REPLACE: "@@redux/REPLACE" + randomString(),
+	  PROBE_UNKNOWN_ACTION: function PROBE_UNKNOWN_ACTION() {
+	    return "@@redux/PROBE_UNKNOWN_ACTION" + randomString();
 	  }
-
-	  return target;
 	};
 
 	/**
@@ -549,9 +67,9 @@
 	 * @returns {boolean} True if the argument appears to be a plain object.
 	 */
 	function isPlainObject(obj) {
-	  if ((typeof obj === 'undefined' ? 'undefined' : _typeof(obj)) !== 'object' || obj === null) return false;
-
+	  if (typeof obj !== 'object' || obj === null) return false;
 	  var proto = obj;
+
 	  while (Object.getPrototypeOf(proto) !== null) {
 	    proto = Object.getPrototypeOf(proto);
 	  }
@@ -584,8 +102,13 @@
 	 * @returns {Store} A Redux store that lets you read the state, dispatch actions
 	 * and subscribe to changes.
 	 */
+
 	function createStore(reducer, preloadedState, enhancer) {
 	  var _ref2;
+
+	  if (typeof preloadedState === 'function' && typeof enhancer === 'function' || typeof enhancer === 'function' && typeof arguments[3] === 'function') {
+	    throw new Error('It looks like you are passing several store enhancers to ' + 'createStore(). This is not supported. Instead, compose them ' + 'together to a single function');
+	  }
 
 	  if (typeof preloadedState === 'function' && typeof enhancer === 'undefined') {
 	    enhancer = preloadedState;
@@ -615,12 +138,13 @@
 	      nextListeners = currentListeners.slice();
 	    }
 	  }
-
 	  /**
 	   * Reads the state tree managed by the store.
 	   *
 	   * @returns {any} The current state tree of your application.
 	   */
+
+
 	  function getState() {
 	    if (isDispatching) {
 	      throw new Error('You may not call store.getState() while the reducer is executing. ' + 'The reducer has already received the state as an argument. ' + 'Pass it down from the top reducer instead of reading it from the store.');
@@ -628,7 +152,6 @@
 
 	    return currentState;
 	  }
-
 	  /**
 	   * Adds a change listener. It will be called any time an action is dispatched,
 	   * and some part of the state tree may potentially have changed. You may then
@@ -652,6 +175,8 @@
 	   * @param {Function} listener A callback to be invoked on every dispatch.
 	   * @returns {Function} A function to remove this change listener.
 	   */
+
+
 	  function subscribe(listener) {
 	    if (typeof listener !== 'function') {
 	      throw new Error('Expected the listener to be a function.');
@@ -662,10 +187,8 @@
 	    }
 
 	    var isSubscribed = true;
-
 	    ensureCanMutateNextListeners();
 	    nextListeners.push(listener);
-
 	    return function unsubscribe() {
 	      if (!isSubscribed) {
 	        return;
@@ -676,13 +199,11 @@
 	      }
 
 	      isSubscribed = false;
-
 	      ensureCanMutateNextListeners();
 	      var index = nextListeners.indexOf(listener);
 	      nextListeners.splice(index, 1);
 	    };
 	  }
-
 	  /**
 	   * Dispatches an action. It is the only way to trigger a state change.
 	   *
@@ -708,6 +229,8 @@
 	   * Note that, if you use a custom middleware, it may wrap `dispatch()` to
 	   * return something else (for example, a Promise you can await).
 	   */
+
+
 	  function dispatch(action) {
 	    if (!isPlainObject(action)) {
 	      throw new Error('Actions must be plain objects. ' + 'Use custom middleware for async actions.');
@@ -729,6 +252,7 @@
 	    }
 
 	    var listeners = currentListeners = nextListeners;
+
 	    for (var i = 0; i < listeners.length; i++) {
 	      var listener = listeners[i];
 	      listener();
@@ -736,7 +260,6 @@
 
 	    return action;
 	  }
-
 	  /**
 	   * Replaces the reducer currently used by the store to calculate the state.
 	   *
@@ -747,21 +270,26 @@
 	   * @param {Function} nextReducer The reducer for the store to use instead.
 	   * @returns {void}
 	   */
+
+
 	  function replaceReducer(nextReducer) {
 	    if (typeof nextReducer !== 'function') {
 	      throw new Error('Expected the nextReducer to be a function.');
 	    }
 
 	    currentReducer = nextReducer;
-	    dispatch({ type: ActionTypes.REPLACE });
+	    dispatch({
+	      type: ActionTypes.REPLACE
+	    });
 	  }
-
 	  /**
 	   * Interoperability point for observable/reactive libraries.
 	   * @returns {observable} A minimal observable of state changes.
 	   * For more information, see the observable proposal:
 	   * https://github.com/tc39/proposal-observable
 	   */
+
+
 	  function observable() {
 	    var _ref;
 
@@ -776,7 +304,7 @@
 	       * emission of values from the observable.
 	       */
 	      subscribe: function subscribe(observer) {
-	        if ((typeof observer === 'undefined' ? 'undefined' : _typeof(observer)) !== 'object' || observer === null) {
+	        if (typeof observer !== 'object' || observer === null) {
 	          throw new TypeError('Expected the observer to be an object.');
 	        }
 
@@ -788,18 +316,21 @@
 
 	        observeState();
 	        var unsubscribe = outerSubscribe(observeState);
-	        return { unsubscribe: unsubscribe };
+	        return {
+	          unsubscribe: unsubscribe
+	        };
 	      }
 	    }, _ref[result] = function () {
 	      return this;
 	    }, _ref;
-	  }
-
-	  // When a store is created, an "INIT" action is dispatched so that every
+	  } // When a store is created, an "INIT" action is dispatched so that every
 	  // reducer returns their initial state. This effectively populates
 	  // the initial state tree.
-	  dispatch({ type: ActionTypes.INIT });
 
+
+	  dispatch({
+	    type: ActionTypes.INIT
+	  });
 	  return _ref2 = {
 	    dispatch: dispatch,
 	    subscribe: subscribe,
@@ -820,12 +351,15 @@
 	    console.error(message);
 	  }
 	  /* eslint-enable no-console */
+
+
 	  try {
 	    // This error was thrown as a convenience so that if you enable
 	    // "break on all exceptions" in your console,
 	    // it would pause the execution at this line.
 	    throw new Error(message);
 	  } catch (e) {} // eslint-disable-line no-empty
+
 	}
 
 	function bindActionCreator(actionCreator, dispatch) {
@@ -833,7 +367,6 @@
 	    return dispatch(actionCreator.apply(this, arguments));
 	  };
 	}
-
 	/**
 	 * Turns an object whose values are action creators, into an object with the
 	 * same keys, but with every function wrapped into a `dispatch` call so they
@@ -855,25 +388,64 @@
 	 * function as `actionCreators`, the return value will also be a single
 	 * function.
 	 */
+
+
 	function bindActionCreators(actionCreators, dispatch) {
 	  if (typeof actionCreators === 'function') {
 	    return bindActionCreator(actionCreators, dispatch);
 	  }
 
-	  if ((typeof actionCreators === 'undefined' ? 'undefined' : _typeof(actionCreators)) !== 'object' || actionCreators === null) {
-	    throw new Error('bindActionCreators expected an object or a function, instead received ' + (actionCreators === null ? 'null' : typeof actionCreators === 'undefined' ? 'undefined' : _typeof(actionCreators)) + '. ' + 'Did you write "import ActionCreators from" instead of "import * as ActionCreators from"?');
+	  if (typeof actionCreators !== 'object' || actionCreators === null) {
+	    throw new Error("bindActionCreators expected an object or a function, instead received " + (actionCreators === null ? 'null' : typeof actionCreators) + ". " + "Did you write \"import ActionCreators from\" instead of \"import * as ActionCreators from\"?");
 	  }
 
 	  var keys = Object.keys(actionCreators);
 	  var boundActionCreators = {};
+
 	  for (var i = 0; i < keys.length; i++) {
 	    var key = keys[i];
 	    var actionCreator = actionCreators[key];
+
 	    if (typeof actionCreator === 'function') {
 	      boundActionCreators[key] = bindActionCreator(actionCreator, dispatch);
 	    }
 	  }
+
 	  return boundActionCreators;
+	}
+
+	function _defineProperty(obj, key, value) {
+	  if (key in obj) {
+	    Object.defineProperty(obj, key, {
+	      value: value,
+	      enumerable: true,
+	      configurable: true,
+	      writable: true
+	    });
+	  } else {
+	    obj[key] = value;
+	  }
+
+	  return obj;
+	}
+
+	function _objectSpread(target) {
+	  for (var i = 1; i < arguments.length; i++) {
+	    var source = arguments[i] != null ? arguments[i] : {};
+	    var ownKeys = Object.keys(source);
+
+	    if (typeof Object.getOwnPropertySymbols === 'function') {
+	      ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {
+	        return Object.getOwnPropertyDescriptor(source, sym).enumerable;
+	      }));
+	    }
+
+	    ownKeys.forEach(function (key) {
+	      _defineProperty(target, key, source[key]);
+	    });
+	  }
+
+	  return target;
 	}
 
 	/**
@@ -886,9 +458,8 @@
 	 * from right to left. For example, compose(f, g, h) is identical to doing
 	 * (...args) => f(g(h(...args))).
 	 */
-
 	function compose() {
-	  for (var _len = arguments.length, funcs = Array(_len), _key = 0; _key < _len; _key++) {
+	  for (var _len = arguments.length, funcs = new Array(_len), _key = 0; _key < _len; _key++) {
 	    funcs[_key] = arguments[_key];
 	  }
 
@@ -904,7 +475,7 @@
 
 	  return funcs.reduce(function (a, b) {
 	    return function () {
-	      return a(b.apply(undefined, arguments));
+	      return a(b.apply(void 0, arguments));
 	    };
 	  });
 	}
@@ -925,34 +496,31 @@
 	 * @param {...Function} middlewares The middleware chain to be applied.
 	 * @returns {Function} A store enhancer applying the middleware.
 	 */
+
 	function applyMiddleware() {
-	  for (var _len = arguments.length, middlewares = Array(_len), _key = 0; _key < _len; _key++) {
+	  for (var _len = arguments.length, middlewares = new Array(_len), _key = 0; _key < _len; _key++) {
 	    middlewares[_key] = arguments[_key];
 	  }
 
 	  return function (createStore) {
 	    return function () {
-	      for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-	        args[_key2] = arguments[_key2];
-	      }
+	      var store = createStore.apply(void 0, arguments);
 
-	      var store = createStore.apply(undefined, args);
 	      var _dispatch = function dispatch() {
-	        throw new Error('Dispatching while constructing your middleware is not allowed. ' + 'Other middleware would not be applied to this dispatch.');
+	        throw new Error("Dispatching while constructing your middleware is not allowed. " + "Other middleware would not be applied to this dispatch.");
 	      };
 
 	      var middlewareAPI = {
 	        getState: store.getState,
 	        dispatch: function dispatch() {
-	          return _dispatch.apply(undefined, arguments);
+	          return _dispatch.apply(void 0, arguments);
 	        }
 	      };
 	      var chain = middlewares.map(function (middleware) {
 	        return middleware(middlewareAPI);
 	      });
-	      _dispatch = compose.apply(undefined, chain)(store.dispatch);
-
-	      return _extends$1({}, store, {
+	      _dispatch = compose.apply(void 0, chain)(store.dispatch);
+	      return _objectSpread({}, store, {
 	        dispatch: _dispatch
 	      });
 	    };
@@ -963,149 +531,22 @@
 	 * This is a dummy function to check if the function name has been altered by minification.
 	 * If the function has been minified and NODE_ENV !== 'production', warn the user.
 	 */
+
 	function isCrushed() {}
 
 	if (typeof isCrushed.name === 'string' && isCrushed.name !== 'isCrushed') {
-	  warning("You are currently using minified code outside of NODE_ENV === 'production'. " + 'This means that you are running a slower development build of Redux. ' + 'You can use loose-envify (https://github.com/zertosh/loose-envify) for browserify ' + 'or DefinePlugin for webpack (http://stackoverflow.com/questions/30030031) ' + 'to ensure you have the correct code for your production build.');
+	  warning('You are currently using minified code outside of NODE_ENV === "production". ' + 'This means that you are running a slower development build of Redux. ' + 'You can use loose-envify (https://github.com/zertosh/loose-envify) for browserify ' + 'or setting mode to production in webpack (https://webpack.js.org/concepts/mode/) ' + 'to ensure you have the correct code for your production build.');
 	}
 
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 *
-	 * This source code is licensed under the MIT license found in the
-	 * LICENSE file in the root directory of this source tree.
-	 *
-	 * 
-	 */
+	var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
-	function makeEmptyFunction(arg) {
-	  return function () {
-	    return arg;
-	  };
+	function unwrapExports (x) {
+		return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x.default : x;
 	}
 
-	/**
-	 * This function accepts and discards inputs; it has no side effects. This is
-	 * primarily useful idiomatically for overridable function endpoints which
-	 * always need to be callable, since JS lacks a null-call idiom ala Cocoa.
-	 */
-	var emptyFunction = function emptyFunction() {};
-
-	emptyFunction.thatReturns = makeEmptyFunction;
-	emptyFunction.thatReturnsFalse = makeEmptyFunction(false);
-	emptyFunction.thatReturnsTrue = makeEmptyFunction(true);
-	emptyFunction.thatReturnsNull = makeEmptyFunction(null);
-	emptyFunction.thatReturnsThis = function () {
-	  return this;
-	};
-	emptyFunction.thatReturnsArgument = function (arg) {
-	  return arg;
-	};
-
-	var emptyFunction_1 = emptyFunction;
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 *
-	 * This source code is licensed under the MIT license found in the
-	 * LICENSE file in the root directory of this source tree.
-	 *
-	 */
-
-	/**
-	 * Use invariant() to assert state which your program assumes to be true.
-	 *
-	 * Provide sprintf-style format (only %s is supported) and arguments
-	 * to provide information about what broke and what you were
-	 * expecting.
-	 *
-	 * The invariant message will be stripped in production, but the invariant
-	 * will remain to ensure logic does not differ in production.
-	 */
-
-	var validateFormat = function validateFormat(format) {};
-
-	{
-	  validateFormat = function validateFormat(format) {
-	    if (format === undefined) {
-	      throw new Error('invariant requires an error message argument');
-	    }
-	  };
+	function createCommonjsModule(fn, module) {
+		return module = { exports: {} }, fn(module, module.exports), module.exports;
 	}
-
-	function invariant(condition, format, a, b, c, d, e, f) {
-	  validateFormat(format);
-
-	  if (!condition) {
-	    var error;
-	    if (format === undefined) {
-	      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
-	    } else {
-	      var args = [a, b, c, d, e, f];
-	      var argIndex = 0;
-	      error = new Error(format.replace(/%s/g, function () {
-	        return args[argIndex++];
-	      }));
-	      error.name = 'Invariant Violation';
-	    }
-
-	    error.framesToPop = 1; // we don't care about invariant's own frame
-	    throw error;
-	  }
-	}
-
-	var invariant_1 = invariant;
-
-	/**
-	 * Similar to invariant but only logs a warning if the condition is not met.
-	 * This can be used to log issues in development environments in critical
-	 * paths. Removing the logging code for production environments will keep the
-	 * same logic and follow the same code paths.
-	 */
-
-	var warning$1 = emptyFunction_1;
-
-	{
-	  var printWarning = function printWarning(format) {
-	    for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-	      args[_key - 1] = arguments[_key];
-	    }
-
-	    var argIndex = 0;
-	    var message = 'Warning: ' + format.replace(/%s/g, function () {
-	      return args[argIndex++];
-	    });
-	    if (typeof console !== 'undefined') {
-	      console.error(message);
-	    }
-	    try {
-	      // --- Welcome to debugging React ---
-	      // This error was thrown as a convenience so that you can use this stack
-	      // to find the callsite that caused this warning to fire.
-	      throw new Error(message);
-	    } catch (x) {}
-	  };
-
-	  warning$1 = function warning(condition, format) {
-	    if (format === undefined) {
-	      throw new Error('`warning(condition, format, ...args)` requires a warning ' + 'message argument');
-	    }
-
-	    if (format.indexOf('Failed Composite propType: ') === 0) {
-	      return; // Ignore CompositeComponent proptype check.
-	    }
-
-	    if (!condition) {
-	      for (var _len2 = arguments.length, args = Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
-	        args[_key2 - 2] = arguments[_key2];
-	      }
-
-	      printWarning.apply(undefined, [format].concat(args));
-	    }
-	  };
-	}
-
-	var warning_1 = warning$1;
 
 	/*
 	object-assign
@@ -1114,7 +555,7 @@
 	*/
 	/* eslint-disable no-unused-vars */
 	var getOwnPropertySymbols = Object.getOwnPropertySymbols;
-	var hasOwnProperty$1 = Object.prototype.hasOwnProperty;
+	var hasOwnProperty = Object.prototype.hasOwnProperty;
 	var propIsEnumerable = Object.prototype.propertyIsEnumerable;
 
 	function toObject(val) {
@@ -1178,7 +619,7 @@
 			from = Object(arguments[s]);
 
 			for (var key in from) {
-				if (hasOwnProperty$1.call(from, key)) {
+				if (hasOwnProperty.call(from, key)) {
 					to[key] = from[key];
 				}
 			}
@@ -1207,11 +648,24 @@
 
 	var ReactPropTypesSecret_1 = ReactPropTypesSecret;
 
+	var printWarning = function() {};
+
 	{
-	  var invariant$1 = invariant_1;
-	  var warning$2 = warning_1;
 	  var ReactPropTypesSecret$1 = ReactPropTypesSecret_1;
 	  var loggedTypeFailures = {};
+
+	  printWarning = function(text) {
+	    var message = 'Warning: ' + text;
+	    if (typeof console !== 'undefined') {
+	      console.error(message);
+	    }
+	    try {
+	      // --- Welcome to debugging React ---
+	      // This error was thrown as a convenience so that you can use this stack
+	      // to find the callsite that caused this warning to fire.
+	      throw new Error(message);
+	    } catch (x) {}
+	  };
 	}
 
 	/**
@@ -1236,12 +690,29 @@
 	        try {
 	          // This is intentionally an invariant that gets caught. It's the same
 	          // behavior as without this statement except with a better message.
-	          invariant$1(typeof typeSpecs[typeSpecName] === 'function', '%s: %s type `%s` is invalid; it must be a function, usually from ' + 'the `prop-types` package, but received `%s`.', componentName || 'React class', location, typeSpecName, typeof typeSpecs[typeSpecName]);
+	          if (typeof typeSpecs[typeSpecName] !== 'function') {
+	            var err = Error(
+	              (componentName || 'React class') + ': ' + location + ' type `' + typeSpecName + '` is invalid; ' +
+	              'it must be a function, usually from the `prop-types` package, but received `' + typeof typeSpecs[typeSpecName] + '`.'
+	            );
+	            err.name = 'Invariant Violation';
+	            throw err;
+	          }
 	          error = typeSpecs[typeSpecName](values, typeSpecName, componentName, location, null, ReactPropTypesSecret$1);
 	        } catch (ex) {
 	          error = ex;
 	        }
-	        warning$2(!error || error instanceof Error, '%s: type specification of %s `%s` is invalid; the type checker ' + 'function must return `null` or an `Error` but returned a %s. ' + 'You may have forgotten to pass an argument to the type checker ' + 'creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and ' + 'shape all require an argument).', componentName || 'React class', location, typeSpecName, typeof error);
+	        if (error && !(error instanceof Error)) {
+	          printWarning(
+	            (componentName || 'React class') + ': type specification of ' +
+	            location + ' `' + typeSpecName + '` is invalid; the type checker ' +
+	            'function must return `null` or an `Error` but returned a ' + typeof error + '. ' +
+	            'You may have forgotten to pass an argument to the type checker ' +
+	            'creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and ' +
+	            'shape all require an argument).'
+	          );
+
+	        }
 	        if (error instanceof Error && !(error.message in loggedTypeFailures)) {
 	          // Only monitor this failure once because there tends to be a lot of the
 	          // same error.
@@ -1249,7 +720,9 @@
 
 	          var stack = getStack ? getStack() : '';
 
-	          warning$2(false, 'Failed %s type: %s%s', location, error.message, stack != null ? stack : '');
+	          printWarning(
+	            'Failed ' + location + ' type: ' + error.message + (stack != null ? stack : '')
+	          );
 	        }
 	      }
 	    }
@@ -1257,6 +730,27 @@
 	}
 
 	var checkPropTypes_1 = checkPropTypes;
+
+	var printWarning$1 = function() {};
+
+	{
+	  printWarning$1 = function(text) {
+	    var message = 'Warning: ' + text;
+	    if (typeof console !== 'undefined') {
+	      console.error(message);
+	    }
+	    try {
+	      // --- Welcome to debugging React ---
+	      // This error was thrown as a convenience so that you can use this stack
+	      // to find the callsite that caused this warning to fire.
+	      throw new Error(message);
+	    } catch (x) {}
+	  };
+	}
+
+	function emptyFunctionThatReturnsNull() {
+	  return null;
+	}
 
 	var factoryWithTypeCheckers = function(isValidElement, throwOnDirectAccess) {
 	  /* global Symbol */
@@ -1400,12 +894,13 @@
 	      if (secret !== ReactPropTypesSecret_1) {
 	        if (throwOnDirectAccess) {
 	          // New behavior only for users of `prop-types` package
-	          invariant_1(
-	            false,
+	          var err = new Error(
 	            'Calling PropTypes validators directly is not supported by the `prop-types` package. ' +
 	            'Use `PropTypes.checkPropTypes()` to call them. ' +
 	            'Read more at http://fb.me/use-check-prop-types'
 	          );
+	          err.name = 'Invariant Violation';
+	          throw err;
 	        } else if (typeof console !== 'undefined') {
 	          // Old behavior for people using React.PropTypes
 	          var cacheKey = componentName + ':' + propName;
@@ -1414,15 +909,12 @@
 	            // Avoid spamming the console because they are often not actionable except for lib authors
 	            manualPropTypeWarningCount < 3
 	          ) {
-	            warning_1(
-	              false,
+	            printWarning$1(
 	              'You are manually calling a React.PropTypes validation ' +
-	              'function for the `%s` prop on `%s`. This is deprecated ' +
+	              'function for the `' + propFullName + '` prop on `' + componentName  + '`. This is deprecated ' +
 	              'and will throw in the standalone `prop-types` package. ' +
 	              'You may be seeing this warning due to a third-party PropTypes ' +
-	              'library. See https://fb.me/react-warning-dont-call-proptypes ' + 'for details.',
-	              propFullName,
-	              componentName
+	              'library. See https://fb.me/react-warning-dont-call-proptypes ' + 'for details.'
 	            );
 	            manualPropTypeCallCache[cacheKey] = true;
 	            manualPropTypeWarningCount++;
@@ -1466,7 +958,7 @@
 	  }
 
 	  function createAnyTypeChecker() {
-	    return createChainableTypeChecker(emptyFunction_1.thatReturnsNull);
+	    return createChainableTypeChecker(emptyFunctionThatReturnsNull);
 	  }
 
 	  function createArrayOfTypeChecker(typeChecker) {
@@ -1516,8 +1008,8 @@
 
 	  function createEnumTypeChecker(expectedValues) {
 	    if (!Array.isArray(expectedValues)) {
-	      warning_1(false, 'Invalid argument supplied to oneOf, expected an instance of array.');
-	      return emptyFunction_1.thatReturnsNull;
+	      printWarning$1('Invalid argument supplied to oneOf, expected an instance of array.');
+	      return emptyFunctionThatReturnsNull;
 	    }
 
 	    function validate(props, propName, componentName, location, propFullName) {
@@ -1559,21 +1051,18 @@
 
 	  function createUnionTypeChecker(arrayOfTypeCheckers) {
 	    if (!Array.isArray(arrayOfTypeCheckers)) {
-	      warning_1(false, 'Invalid argument supplied to oneOfType, expected an instance of array.');
-	      return emptyFunction_1.thatReturnsNull;
+	      printWarning$1('Invalid argument supplied to oneOfType, expected an instance of array.');
+	      return emptyFunctionThatReturnsNull;
 	    }
 
 	    for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
 	      var checker = arrayOfTypeCheckers[i];
 	      if (typeof checker !== 'function') {
-	        warning_1(
-	          false,
+	        printWarning$1(
 	          'Invalid argument supplied to oneOfType. Expected an array of check functions, but ' +
-	          'received %s at index %s.',
-	          getPostfixForTypeWarning(checker),
-	          i
+	          'received ' + getPostfixForTypeWarning(checker) + ' at index ' + i + '.'
 	        );
-	        return emptyFunction_1.thatReturnsNull;
+	        return emptyFunctionThatReturnsNull;
 	      }
 	    }
 
@@ -1821,15 +1310,24 @@
 	  throw new Error(prefix + ': ' + (message || ''));
 	});
 
+	var prefix$1 = 'Invariant failed';
+	var index$1 = (function (condition, message) {
+	  if (condition) {
+	    return;
+	  }
+
+	  {
+	    throw new Error(prefix$1 + ": " + (message || ''));
+	  }
+	});
+
 	var getRect = function getRect(_ref) {
 	  var top = _ref.top,
 	      right = _ref.right,
 	      bottom = _ref.bottom,
 	      left = _ref.left;
-
 	  var width = right - left;
 	  var height = bottom - top;
-
 	  var rect = {
 	    top: top,
 	    right: right,
@@ -1837,45 +1335,38 @@
 	    left: left,
 	    width: width,
 	    height: height,
-
 	    x: left,
 	    y: top,
-
 	    center: {
 	      x: (right + left) / 2,
 	      y: (bottom + top) / 2
 	    }
 	  };
-
 	  return rect;
 	};
-
 	var expand = function expand(target, expandBy) {
 	  return {
 	    top: target.top - expandBy.top,
 	    left: target.left - expandBy.left,
-
 	    bottom: target.bottom + expandBy.bottom,
 	    right: target.right + expandBy.right
 	  };
 	};
-
 	var shrink = function shrink(target, shrinkBy) {
 	  return {
 	    top: target.top + shrinkBy.top,
 	    left: target.left + shrinkBy.left,
-
 	    bottom: target.bottom - shrinkBy.bottom,
 	    right: target.right - shrinkBy.right
 	  };
 	};
 
-	var shift = function shift(spacing, point) {
+	var shift = function shift(target, shiftBy) {
 	  return {
-	    top: spacing.top + point.y,
-	    left: spacing.left + point.x,
-	    bottom: spacing.bottom + point.y,
-	    right: spacing.right + point.x
+	    top: target.top + shiftBy.y,
+	    left: target.left + shiftBy.x,
+	    bottom: target.bottom + shiftBy.y,
+	    right: target.right + shiftBy.x
 	  };
 	};
 
@@ -1885,22 +1376,17 @@
 	  bottom: 0,
 	  left: 0
 	};
-
 	var createBox = function createBox(_ref2) {
 	  var borderBox = _ref2.borderBox,
 	      _ref2$margin = _ref2.margin,
-	      margin = _ref2$margin === undefined ? noSpacing : _ref2$margin,
+	      margin = _ref2$margin === void 0 ? noSpacing : _ref2$margin,
 	      _ref2$border = _ref2.border,
-	      border = _ref2$border === undefined ? noSpacing : _ref2$border,
+	      border = _ref2$border === void 0 ? noSpacing : _ref2$border,
 	      _ref2$padding = _ref2.padding,
-	      padding = _ref2$padding === undefined ? noSpacing : _ref2$padding;
-
+	      padding = _ref2$padding === void 0 ? noSpacing : _ref2$padding;
 	  var marginBox = getRect(expand(borderBox, margin));
-
 	  var paddingBox = getRect(shrink(borderBox, border));
-
 	  var contentBox = getRect(shrink(paddingBox, padding));
-
 	  return {
 	    marginBox: marginBox,
 	    borderBox: getRect(borderBox),
@@ -1912,9 +1398,15 @@
 	  };
 	};
 
-	var parse = function parse(value) {
-	  return parseInt(value, 10);
+	var parse = function parse(raw) {
+	  var value = raw.slice(0, -2);
+	  var suffix = raw.slice(-2);
+	  !(suffix === 'px') ? index$1(false, "Expected value to be a pixel value.\n      Expected form: 10px\n      Actual value: " + raw + "\n    ") : void 0;
+	  var result = Number(value);
+	  !!isNaN(result) ? index$1(false, "Could not parse value [raw: " + raw + ", without suffix: " + value + "]") : void 0;
+	  return result;
 	};
+
 	var getWindowScroll = function getWindowScroll() {
 	  return {
 	    x: window.pageXOffset,
@@ -1927,9 +1419,7 @@
 	      border = original.border,
 	      margin = original.margin,
 	      padding = original.padding;
-
 	  var shifted = shift(borderBox, change);
-
 	  return createBox({
 	    borderBox: shifted,
 	    border: border,
@@ -1937,12 +1427,13 @@
 	    padding: padding
 	  });
 	};
+	var withScroll = function withScroll(original, scroll) {
+	  if (scroll === void 0) {
+	    scroll = getWindowScroll();
+	  }
 
-	var withScroll = function withScroll(original) {
-	  var scroll = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : getWindowScroll();
 	  return offset(original, scroll);
 	};
-
 	var calculateBox = function calculateBox(borderBox, styles) {
 	  var margin = {
 	    top: parse(styles.marginTop),
@@ -1962,7 +1453,6 @@
 	    bottom: parse(styles.borderBottomWidth),
 	    left: parse(styles.borderLeftWidth)
 	  };
-
 	  return createBox({
 	    borderBox: borderBox,
 	    margin: margin,
@@ -1970,11 +1460,9 @@
 	    border: border
 	  });
 	};
-
 	var getBox = function getBox(el) {
 	  var borderBox = el.getBoundingClientRect();
 	  var styles = window.getComputedStyle(el);
-
 	  return calculateBox(borderBox, styles);
 	};
 
@@ -2212,12 +1700,14 @@
 	  return a === b;
 	};
 
-	function index$1 (resultFn) {
-	  var isEqual = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : simpleIsEqual;
+	function index$2 (resultFn, isEqual) {
+	  if (isEqual === void 0) {
+	    isEqual = simpleIsEqual;
+	  }
 
-	  var lastThis = void 0;
+	  var lastThis;
 	  var lastArgs = [];
-	  var lastResult = void 0;
+	  var lastResult;
 	  var calledOnce = false;
 
 	  var isNewArgEqualToLast = function isNewArgEqualToLast(newArg, index) {
@@ -2225,7 +1715,7 @@
 	  };
 
 	  var result = function result() {
-	    for (var _len = arguments.length, newArgs = Array(_len), _key = 0; _key < _len; _key++) {
+	    for (var _len = arguments.length, newArgs = new Array(_len), _key = 0; _key < _len; _key++) {
 	      newArgs[_key] = arguments[_key];
 	    }
 
@@ -2233,53 +1723,40 @@
 	      return lastResult;
 	    }
 
+	    lastResult = resultFn.apply(this, newArgs);
 	    calledOnce = true;
 	    lastThis = this;
 	    lastArgs = newArgs;
-	    lastResult = resultFn.apply(this, newArgs);
 	    return lastResult;
 	  };
 
 	  return result;
 	}
 
-	// most Object methods by ES6 should accept primitives
-
-
-
-	var _objectSap = function (KEY, exec) {
-	  var fn = (_core.Object || {})[KEY] || Object[KEY];
-	  var exp = {};
-	  exp[KEY] = exec(fn);
-	  _export(_export.S + _export.F * _fails(function () { fn(1); }), 'Object', exp);
-	};
-
-	// 19.1.2.14 Object.keys(O)
-
-
-
-	_objectSap('keys', function () {
-	  return function keys(it) {
-	    return _objectKeys(_toObject(it));
-	  };
+	var toDroppableMap = index$2(function (droppables) {
+	  return droppables.reduce(function (previous, current) {
+	    previous[current.descriptor.id] = current;
+	    return previous;
+	  }, {});
 	});
-
-	var keys = _core.Object.keys;
-
-	var keys$1 = keys;
-
-	var toDroppableList = index$1(function (droppables) {
-	  return keys$1(droppables).map(function (id) {
+	var toDraggableMap = index$2(function (draggables) {
+	  return draggables.reduce(function (previous, current) {
+	    previous[current.descriptor.id] = current;
+	    return previous;
+	  }, {});
+	});
+	var toDroppableList = index$2(function (droppables) {
+	  return Object.keys(droppables).map(function (id) {
 	    return droppables[id];
 	  });
 	});
-	var toDraggableList = index$1(function (draggables) {
-	  return keys$1(draggables).map(function (id) {
+	var toDraggableList = index$2(function (draggables) {
+	  return Object.keys(draggables).map(function (id) {
 	    return draggables[id];
 	  });
 	});
 
-	var getDraggablesInsideDroppable = index$1(function (droppable, draggables) {
+	var getDraggablesInsideDroppable = index$2(function (droppable, draggables) {
 	  return toDraggableList(draggables).filter(function (draggable) {
 	    return droppable.descriptor.id === draggable.descriptor.droppableId;
 	  }).sort(function (a, b) {
@@ -2301,7 +1778,7 @@
 	  };
 	});
 
-	var getRequiredGrowth = index$1(function (draggable, draggables, droppable) {
+	var getRequiredGrowth = index$2(function (draggable, draggables, droppable) {
 	  var getResult = function getResult(existingSpace) {
 	    var requiredSpace = draggable.page.marginBox[droppable.axis.size];
 
@@ -2325,7 +1802,7 @@
 	  var existingSpace = endOfDroppable - endOfDraggables;
 	  return getResult(existingSpace);
 	});
-	var getWithGrowth = index$1(function (area, growth) {
+	var getWithGrowth = index$2(function (area, growth) {
 	  return getRect(expandByPosition(area, growth));
 	});
 
@@ -2414,7 +1891,7 @@
 	  destination: null
 	};
 
-	var getDisplacementMap = index$1(function (displaced) {
+	var getDisplacementMap = index$2(function (displaced) {
 	  return displaced.reduce(function (map, displacement) {
 	    map[displacement.draggableId] = displacement;
 	    return map;
@@ -2570,11 +2047,22 @@
 	        return false;
 	      }
 
+	      if (draggable.page.borderBox.height > borderBox.height) {
+	        var leadingEdge = currentCenter[axis.line] + draggable.page.borderBox.height / 2;
+	        return leadingEdge > borderBox.center[axis.line];
+	      }
+
 	      return currentCenter[axis.line] > borderBox[axis.start];
 	    }
 
 	    if (originalCenter[axis.line] < borderBox.center[axis.line]) {
 	      return false;
+	    }
+
+	    if (draggable.page.borderBox.height > borderBox.height) {
+	      var _leadingEdge = currentCenter[axis.line] - draggable.page.borderBox.height / 2;
+
+	      return _leadingEdge < borderBox.center[axis.line];
 	    }
 
 	    return currentCenter[axis.line] < borderBox[axis.end];
@@ -4785,23 +4273,20 @@
 	          collection = _getProvided.collection;
 
 	      var windowScroll = collection.initialWindowScroll;
-
-	      var draggables = keys$1(additions.draggables).map(function (id) {
+	      var draggables = Object.keys(additions.draggables).map(function (id) {
 	        return entries.draggables[id].getDimension(windowScroll);
 	      });
-
-	      var droppables = keys$1(additions.droppables).map(function (id) {
+	      var droppables = Object.keys(additions.droppables).map(function (id) {
 	        return entries.droppables[id].callbacks.getDimensionAndWatchScroll(windowScroll, collection.scrollOptions);
 	      });
-
 	      var result = {
 	        additions: {
 	          draggables: draggables,
 	          droppables: droppables
 	        },
 	        removals: {
-	          draggables: keys$1(removals.draggables),
-	          droppables: keys$1(removals.droppables)
+	          draggables: Object.keys(removals.draggables),
+	          droppables: Object.keys(removals.droppables)
 	        }
 	      };
 	      reset();
@@ -5039,8 +4524,7 @@
 	    var timingKey = 'Initial collection from DOM';
 	    start(timingKey);
 	    var home = critical.droppable;
-
-	    var droppables = keys$1(entries.droppables).map(function (id) {
+	    var droppables = Object.keys(entries.droppables).map(function (id) {
 	      return entries.droppables[id];
 	    }).filter(function (entry) {
 	      return entry.descriptor.type === home.type;
@@ -5050,8 +4534,7 @@
 	      previous[dimension.descriptor.id] = dimension;
 	      return previous;
 	    }, {});
-
-	    var draggables = keys$1(entries.draggables).map(function (id) {
+	    var draggables = Object.keys(entries.draggables).map(function (id) {
 	      return entries.draggables[id];
 	    }).filter(function (entry) {
 	      return entry.descriptor.type === critical.draggable.type;
@@ -5061,7 +4544,6 @@
 	      previous[dimension.descriptor.id] = dimension;
 	      return previous;
 	    }, {});
-
 	    finish(timingKey);
 	    var dimensions = {
 	      draggables: draggables,
@@ -5081,13 +4563,11 @@
 
 	    publisher.stop();
 	    var home = collection.critical.droppable;
-
-	    keys$1(entries.droppables).filter(function (id) {
+	    Object.keys(entries.droppables).filter(function (id) {
 	      return entries.droppables[id].descriptor.type === home.type;
 	    }).forEach(function (id) {
 	      return entries.droppables[id].callbacks.unwatchScroll();
 	    });
-
 	    collection = null;
 	  };
 
@@ -5147,10 +4627,10 @@
 	  outOfTheWay: 'transform 0.2s cubic-bezier(0.2, 0, 0, 1)'
 	};
 
-	var prefix$1 = 'data-react-beautiful-dnd';
-	var dragHandle = prefix$1 + "-drag-handle";
-	var draggable = prefix$1 + "-draggable";
-	var droppable = prefix$1 + "-droppable";
+	var prefix$2 = 'data-react-beautiful-dnd';
+	var dragHandle = prefix$2 + "-drag-handle";
+	var draggable = prefix$2 + "-draggable";
+	var droppable = prefix$2 + "-droppable";
 
 	var getStyles = (function (styleContext) {
 	  var dragHandleSelector = "[" + dragHandle + "=\"" + styleContext + "\"]";
@@ -5200,7 +4680,7 @@
 	  var context = "" + count++;
 	  var styles = getStyles(context);
 	  var el = null;
-	  var setStyle = index$1(function (proposed) {
+	  var setStyle = index$2(function (proposed) {
 	    !el ? index(false, 'Cannot set style of style tag if not mounted') : void 0;
 	    el.innerHTML = proposed;
 	  });
@@ -5209,7 +4689,7 @@
 	    !!el ? index(false, 'Style marshal already mounted') : void 0;
 	    el = document.createElement('style');
 	    el.type = 'text/css';
-	    el.setAttribute(prefix$1, context);
+	    el.setAttribute(prefix$2, context);
 	    getHead().appendChild(el);
 	    setStyle(styles.resting);
 	  };
@@ -5307,9 +4787,7 @@
 	    el.setAttribute('aria-live', 'assertive');
 	    el.setAttribute('role', 'log');
 	    el.setAttribute('aria-atomic', 'true');
-
-	    assign$1(el.style, visuallyHidden);
-
+	    Object.assign(el.style, visuallyHidden);
 	    getBody().appendChild(el);
 	  };
 
@@ -5328,7 +4806,7 @@
 	  return announcer;
 	});
 
-	var index$2 = (function (fn) {
+	var index$3 = (function (fn) {
 	  var lastArgs = [];
 	  var frameId = null;
 
@@ -5365,7 +4843,7 @@
 	  return resultFn;
 	});
 
-	var getScrollableDroppables = index$1(function (droppables) {
+	var getScrollableDroppables = index$2(function (droppables) {
 	  return toDroppableList(droppables).filter(function (droppable) {
 	    if (!droppable.isEnabled) {
 	      return false;
@@ -5671,8 +5149,8 @@
 	var createFluidScroller = (function (_ref3) {
 	  var scrollWindow = _ref3.scrollWindow,
 	      scrollDroppable = _ref3.scrollDroppable;
-	  var scheduleWindowScroll = index$2(scrollWindow);
-	  var scheduleDroppableScroll = index$2(scrollDroppable);
+	  var scheduleWindowScroll = index$3(scrollWindow);
+	  var scheduleDroppableScroll = index$3(scrollDroppable);
 
 	  var scroller = function scroller(state) {
 	    var center = state.current.page.borderBoxCenter;
@@ -5845,16 +5323,16 @@
 	  return marshal;
 	});
 
-	var prefix$2 = function prefix(key) {
+	var prefix$3 = function prefix(key) {
 	  return "private-react-beautiful-dnd-key-do-not-use-" + key;
 	};
 
-	var storeKey = prefix$2('store');
-	var droppableIdKey = prefix$2('droppable-id');
-	var droppableTypeKey = prefix$2('droppable-type');
-	var dimensionMarshalKey = prefix$2('dimension-marshal');
-	var styleContextKey = prefix$2('style-context');
-	var canLiftContextKey = prefix$2('can-lift');
+	var storeKey = prefix$3('store');
+	var droppableIdKey = prefix$3('droppable-id');
+	var droppableTypeKey = prefix$3('droppable-type');
+	var dimensionMarshalKey = prefix$3('dimension-marshal');
+	var styleContextKey = prefix$3('style-context');
+	var canLiftContextKey = prefix$3('can-lift');
 
 	var _DragDropContext$chil;
 	var resetServerContext = function resetServerContext() {
@@ -6003,7 +5481,7 @@
 	 * @param {String} message The warning message.
 	 * @returns {void}
 	 */
-	function warning$3(message) {
+	function warning$1(message) {
 	  /* eslint-disable no-console */
 	  if (typeof console !== 'undefined' && typeof console.error === 'function') {
 	    console.error(message);
@@ -6032,7 +5510,7 @@
 	  }
 	  didWarnAboutReceivingStore = true;
 
-	  warning$3('<Provider> does not support changing `store` on the fly. ' + 'It is most likely that you see this error because you updated to ' + 'Redux 2.x and React Redux 2.x which no longer hot reload reducers ' + 'automatically. See https://github.com/reactjs/react-redux/releases/' + 'tag/v2.0.0 for the migration instructions.');
+	  warning$1('<Provider> does not support changing `store` on the fly. ' + 'It is most likely that you see this error because you updated to ' + 'Redux 2.x and React Redux 2.x which no longer hot reload reducers ' + 'automatically. See https://github.com/reactjs/react-redux/releases/' + 'tag/v2.0.0 for the migration instructions.');
 	}
 
 	function createProvider() {
@@ -6087,77 +5565,72 @@
 
 	createProvider();
 
-	var hoistNonReactStatics = createCommonjsModule(function (module, exports) {
 	/**
 	 * Copyright 2015, Yahoo! Inc.
 	 * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
 	 */
-	(function (global, factory) {
-	    module.exports = factory();
-	}(commonjsGlobal, (function () {
-	    
-	    var REACT_STATICS = {
-	        childContextTypes: true,
-	        contextTypes: true,
-	        defaultProps: true,
-	        displayName: true,
-	        getDefaultProps: true,
-	        getDerivedStateFromProps: true,
-	        mixins: true,
-	        propTypes: true,
-	        type: true
-	    };
-	    
-	    var KNOWN_STATICS = {
-	        name: true,
-	        length: true,
-	        prototype: true,
-	        caller: true,
-	        callee: true,
-	        arguments: true,
-	        arity: true
-	    };
-	    
-	    var defineProperty = Object.defineProperty;
-	    var getOwnPropertyNames = Object.getOwnPropertyNames;
-	    var getOwnPropertySymbols = Object.getOwnPropertySymbols;
-	    var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
-	    var getPrototypeOf = Object.getPrototypeOf;
-	    var objectPrototype = getPrototypeOf && getPrototypeOf(Object);
-	    
-	    return function hoistNonReactStatics(targetComponent, sourceComponent, blacklist) {
-	        if (typeof sourceComponent !== 'string') { // don't hoist over string (html) components
-	            
-	            if (objectPrototype) {
-	                var inheritedComponent = getPrototypeOf(sourceComponent);
-	                if (inheritedComponent && inheritedComponent !== objectPrototype) {
-	                    hoistNonReactStatics(targetComponent, inheritedComponent, blacklist);
-	                }
+	var REACT_STATICS = {
+	    childContextTypes: true,
+	    contextTypes: true,
+	    defaultProps: true,
+	    displayName: true,
+	    getDefaultProps: true,
+	    getDerivedStateFromProps: true,
+	    mixins: true,
+	    propTypes: true,
+	    type: true
+	};
+
+	var KNOWN_STATICS = {
+	    name: true,
+	    length: true,
+	    prototype: true,
+	    caller: true,
+	    callee: true,
+	    arguments: true,
+	    arity: true
+	};
+
+	var defineProperty = Object.defineProperty;
+	var getOwnPropertyNames = Object.getOwnPropertyNames;
+	var getOwnPropertySymbols$1 = Object.getOwnPropertySymbols;
+	var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
+	var getPrototypeOf = Object.getPrototypeOf;
+	var objectPrototype = getPrototypeOf && getPrototypeOf(Object);
+
+	function hoistNonReactStatics(targetComponent, sourceComponent, blacklist) {
+	    if (typeof sourceComponent !== 'string') { // don't hoist over string (html) components
+
+	        if (objectPrototype) {
+	            var inheritedComponent = getPrototypeOf(sourceComponent);
+	            if (inheritedComponent && inheritedComponent !== objectPrototype) {
+	                hoistNonReactStatics(targetComponent, inheritedComponent, blacklist);
 	            }
-	            
-	            var keys = getOwnPropertyNames(sourceComponent);
-	            
-	            if (getOwnPropertySymbols) {
-	                keys = keys.concat(getOwnPropertySymbols(sourceComponent));
-	            }
-	            
-	            for (var i = 0; i < keys.length; ++i) {
-	                var key = keys[i];
-	                if (!REACT_STATICS[key] && !KNOWN_STATICS[key] && (!blacklist || !blacklist[key])) {
-	                    var descriptor = getOwnPropertyDescriptor(sourceComponent, key);
-	                    try { // Avoid failures from read-only properties
-	                        defineProperty(targetComponent, key, descriptor);
-	                    } catch (e) {}
-	                }
-	            }
-	            
-	            return targetComponent;
 	        }
-	        
+
+	        var keys = getOwnPropertyNames(sourceComponent);
+
+	        if (getOwnPropertySymbols$1) {
+	            keys = keys.concat(getOwnPropertySymbols$1(sourceComponent));
+	        }
+
+	        for (var i = 0; i < keys.length; ++i) {
+	            var key = keys[i];
+	            if (!REACT_STATICS[key] && !KNOWN_STATICS[key] && (!blacklist || !blacklist[key])) {
+	                var descriptor = getOwnPropertyDescriptor(sourceComponent, key);
+	                try { // Avoid failures from read-only properties
+	                    defineProperty(targetComponent, key, descriptor);
+	                } catch (e) {}
+	            }
+	        }
+
 	        return targetComponent;
-	    };
-	})));
-	});
+	    }
+
+	    return targetComponent;
+	}
+
+	var hoistNonReactStatics_cjs = hoistNonReactStatics;
 
 	/**
 	 * Copyright (c) 2013-present, Facebook, Inc.
@@ -6166,7 +5639,7 @@
 	 * LICENSE file in the root directory of this source tree.
 	 */
 
-	var invariant$2 = function(condition, format, a, b, c, d, e, f) {
+	var invariant = function(condition, format, a, b, c, d, e, f) {
 	  {
 	    if (format === undefined) {
 	      throw new Error('invariant requires an error message argument');
@@ -6194,7 +5667,7 @@
 	  }
 	};
 
-	var invariant_1$1 = invariant$2;
+	var invariant_1 = invariant;
 
 	function _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -6287,7 +5760,7 @@
 	  return Subscription;
 	}();
 
-	var _extends$2 = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	var _extends$1 = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	function _classCallCheck$2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -6363,13 +5836,13 @@
 	  var childContextTypes = (_childContextTypes = {}, _childContextTypes[subscriptionKey] = subscriptionShape, _childContextTypes);
 
 	  return function wrapWithConnect(WrappedComponent) {
-	    invariant_1$1(typeof WrappedComponent == 'function', 'You must pass a component to the function returned by ' + (methodName + '. Instead received ' + JSON.stringify(WrappedComponent)));
+	    invariant_1(typeof WrappedComponent == 'function', 'You must pass a component to the function returned by ' + (methodName + '. Instead received ' + JSON.stringify(WrappedComponent)));
 
 	    var wrappedComponentName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
 
 	    var displayName = getDisplayName(wrappedComponentName);
 
-	    var selectorFactoryOptions = _extends$2({}, connectOptions, {
+	    var selectorFactoryOptions = _extends$1({}, connectOptions, {
 	      getDisplayName: getDisplayName,
 	      methodName: methodName,
 	      renderCountProp: renderCountProp,
@@ -6396,7 +5869,7 @@
 	        _this.propsMode = Boolean(props[storeKey]);
 	        _this.setWrappedInstance = _this.setWrappedInstance.bind(_this);
 
-	        invariant_1$1(_this.store, 'Could not find "' + storeKey + '" in either the context or props of ' + ('"' + displayName + '". Either wrap the root component in a <Provider>, ') + ('or explicitly pass "' + storeKey + '" as a prop to "' + displayName + '".'));
+	        invariant_1(_this.store, 'Could not find "' + storeKey + '" in either the context or props of ' + ('"' + displayName + '". Either wrap the root component in a <Provider>, ') + ('or explicitly pass "' + storeKey + '" as a prop to "' + displayName + '".'));
 
 	        _this.initSelector();
 	        _this.initSubscription();
@@ -6446,7 +5919,7 @@
 	      };
 
 	      Connect.prototype.getWrappedInstance = function getWrappedInstance() {
-	        invariant_1$1(withRef, 'To access the wrapped instance, you need to specify ' + ('{ withRef: true } in the options argument of the ' + methodName + '() call.'));
+	        invariant_1(withRef, 'To access the wrapped instance, you need to specify ' + ('{ withRef: true } in the options argument of the ' + methodName + '() call.'));
 	        return this.wrappedInstance;
 	      };
 
@@ -6508,7 +5981,7 @@
 	        // this is especially important for 'ref' since that's a reference back to the component
 	        // instance. a singleton memoized selector would then be holding a reference to the
 	        // instance, preventing the instance from being garbage collected, and that would be bad
-	        var withExtras = _extends$2({}, props);
+	        var withExtras = _extends$1({}, props);
 	        if (withRef) withExtras.ref = this.setWrappedInstance;
 	        if (renderCountProp) withExtras[renderCountProp] = this.renderCount++;
 	        if (this.propsMode && this.subscription) withExtras[subscriptionKey] = this.subscription;
@@ -6566,13 +6039,13 @@
 	      };
 	    }
 
-	    return hoistNonReactStatics(Connect, WrappedComponent);
+	    return hoistNonReactStatics_cjs(Connect, WrappedComponent);
 	  };
 	}
 
 	var hasOwn = Object.prototype.hasOwnProperty;
 
-	function is$1(x, y) {
+	function is(x, y) {
 	  if (x === y) {
 	    return x !== 0 || y !== 0 || 1 / x === 1 / y;
 	  } else {
@@ -6581,7 +6054,7 @@
 	}
 
 	function shallowEqual(objA, objB) {
-	  if (is$1(objA, objB)) return true;
+	  if (is(objA, objB)) return true;
 
 	  if (typeof objA !== 'object' || objA === null || typeof objB !== 'object' || objB === null) {
 	    return false;
@@ -6593,7 +6066,7 @@
 	  if (keysA.length !== keysB.length) return false;
 
 	  for (var i = 0; i < keysA.length; i++) {
-	    if (!hasOwn.call(objB, keysA[i]) || !is$1(objA[keysA[i]], objB[keysA[i]])) {
+	    if (!hasOwn.call(objB, keysA[i]) || !is(objA[keysA[i]], objB[keysA[i]])) {
 	      return false;
 	    }
 	  }
@@ -6617,7 +6090,7 @@
 	var objectProto = Object.prototype;
 
 	/** Used to check objects for own properties. */
-	var hasOwnProperty$2 = objectProto.hasOwnProperty;
+	var hasOwnProperty$1 = objectProto.hasOwnProperty;
 
 	/**
 	 * Used to resolve the
@@ -6637,7 +6110,7 @@
 	 * @returns {string} Returns the raw `toStringTag`.
 	 */
 	function getRawTag(value) {
-	  var isOwn = hasOwnProperty$2.call(value, symToStringTag),
+	  var isOwn = hasOwnProperty$1.call(value, symToStringTag),
 	      tag = value[symToStringTag];
 
 	  try {
@@ -6755,7 +6228,7 @@
 	var funcToString = funcProto.toString;
 
 	/** Used to check objects for own properties. */
-	var hasOwnProperty$3 = objectProto$2.hasOwnProperty;
+	var hasOwnProperty$2 = objectProto$2.hasOwnProperty;
 
 	/** Used to infer the `Object` constructor. */
 	var objectCtorString = funcToString.call(Object);
@@ -6796,14 +6269,14 @@
 	  if (proto === null) {
 	    return true;
 	  }
-	  var Ctor = hasOwnProperty$3.call(proto, 'constructor') && proto.constructor;
+	  var Ctor = hasOwnProperty$2.call(proto, 'constructor') && proto.constructor;
 	  return typeof Ctor == 'function' && Ctor instanceof Ctor &&
 	    funcToString.call(Ctor) == objectCtorString;
 	}
 
 	function verifyPlainObject(value, displayName, methodName) {
 	  if (!isPlainObject$1(value)) {
-	    warning$3(methodName + '() in ' + displayName + ' must return a plain object. Instead received ' + value + '.');
+	    warning$1(methodName + '() in ' + displayName + ' must return a plain object. Instead received ' + value + '.');
 	  }
 	}
 
@@ -6903,10 +6376,10 @@
 
 	var defaultMapStateToPropsFactories = [whenMapStateToPropsIsFunction, whenMapStateToPropsIsMissing];
 
-	var _extends$3 = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	var _extends$2 = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	function defaultMergeProps(stateProps, dispatchProps, ownProps) {
-	  return _extends$3({}, ownProps, stateProps, dispatchProps);
+	  return _extends$2({}, ownProps, stateProps, dispatchProps);
 	}
 
 	function wrapMergePropsFunc(mergeProps) {
@@ -6952,7 +6425,7 @@
 	    throw new Error('Unexpected value for ' + methodName + ' in ' + displayName + '.');
 	  } else if (methodName === 'mapStateToProps' || methodName === 'mapDispatchToProps') {
 	    if (!selector.hasOwnProperty('dependsOnOwnProps')) {
-	      warning$3('The selector for ' + methodName + ' of ' + displayName + ' did not specify a value for dependsOnOwnProps.');
+	      warning$1('The selector for ' + methodName + ' of ' + displayName + ' did not specify a value for dependsOnOwnProps.');
 	    }
 	  }
 	}
@@ -7064,7 +6537,7 @@
 	  return selectorFactory(mapStateToProps, mapDispatchToProps, mergeProps, dispatch, options);
 	}
 
-	var _extends$4 = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	var _extends$3 = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	function _objectWithoutProperties$2(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
@@ -7133,7 +6606,7 @@
 	    var initMapDispatchToProps = match(mapDispatchToProps, mapDispatchToPropsFactories, 'mapDispatchToProps');
 	    var initMergeProps = match(mergeProps, mergePropsFactories, 'mergeProps');
 
-	    return connectHOC(selectorFactory, _extends$4({
+	    return connectHOC(selectorFactory, _extends$3({
 	      // used in error messages
 	      methodName: 'connect',
 
@@ -7231,7 +6704,7 @@
 	      return getScroll(_this.watchingScroll.closestScrollable);
 	    };
 
-	    _this.memoizedUpdateScroll = index$1(function (x, y) {
+	    _this.memoizedUpdateScroll = index$2(function (x, y) {
 	      !_this.publishedDescriptor ? index(false, 'Cannot update scroll on unpublished droppable') : void 0;
 	      var newScroll = {
 	        x: x,
@@ -7247,7 +6720,7 @@
 	      _this.memoizedUpdateScroll(offset$$1.x, offset$$1.y);
 	    };
 
-	    _this.scheduleScrollUpdate = index$2(_this.updateScroll);
+	    _this.scheduleScrollUpdate = index$3(_this.updateScroll);
 
 	    _this.onClosestScroll = function () {
 	      !_this.watchingScroll ? index(false, 'Could not find scroll options while scrolling') : void 0;
@@ -7298,7 +6771,7 @@
 	      _this.watchingScroll = null;
 	    };
 
-	    _this.getMemoizedDescriptor = index$1(function (id, type) {
+	    _this.getMemoizedDescriptor = index$2(function (id, type) {
 	      return {
 	        id: id,
 	        type: type
@@ -7654,7 +7127,7 @@
 	    return id === destination.droppableId;
 	  };
 
-	  var getMapProps = index$1(function (isDraggingOver, draggingOverWith, placeholder) {
+	  var getMapProps = index$2(function (isDraggingOver, draggingOverWith, placeholder) {
 	    return {
 	      isDraggingOver: isDraggingOver,
 	      draggingOverWith: draggingOverWith,
@@ -7726,7 +7199,7 @@
 
 	    _this = _Component.call.apply(_Component, [this].concat(args)) || this;
 	    _this.publishedDescriptor = null;
-	    _this.getMemoizedDescriptor = index$1(function (id, index$$1, droppableId, type) {
+	    _this.getMemoizedDescriptor = index$2(function (id, index$$1, droppableId, type) {
 	      return {
 	        id: id,
 	        index: index$$1,
@@ -7983,7 +7456,7 @@
 	// Some versions of FF have rAF but not cAF
 	if(!raf || !caf) {
 	  var last = 0
-	    , id$1 = 0
+	    , id = 0
 	    , queue = []
 	    , frameDuration = 1000 / 60;
 
@@ -8010,11 +7483,11 @@
 	      }, Math.round(next));
 	    }
 	    queue.push({
-	      handle: ++id$1,
+	      handle: ++id,
 	      callback: callback,
 	      cancelled: false
 	    });
-	    return id$1
+	    return id
 	  };
 
 	  caf = function(handle) {
@@ -8035,9 +7508,12 @@
 	var cancel = function() {
 	  caf.apply(root$2, arguments);
 	};
-	var polyfill = function() {
-	  root$2.requestAnimationFrame = raf;
-	  root$2.cancelAnimationFrame = caf;
+	var polyfill = function(object) {
+	  if (!object) {
+	    object = root$2;
+	  }
+	  object.requestAnimationFrame = raf;
+	  object.cancelAnimationFrame = caf;
 	};
 	raf_1.cancel = cancel;
 	raf_1.polyfill = polyfill;
@@ -8077,7 +7553,7 @@
 
 	exports.__esModule = true;
 
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	var _extends$$1 = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
@@ -8165,10 +7641,10 @@
 	        if (typeof styleValue === 'number') {
 	          if (!dirty) {
 	            dirty = true;
-	            currentStyle = _extends({}, currentStyle);
-	            currentVelocity = _extends({}, currentVelocity);
-	            lastIdealStyle = _extends({}, lastIdealStyle);
-	            lastIdealVelocity = _extends({}, lastIdealVelocity);
+	            currentStyle = _extends$$1({}, currentStyle);
+	            currentVelocity = _extends$$1({}, currentVelocity);
+	            lastIdealStyle = _extends$$1({}, lastIdealStyle);
+	            lastIdealVelocity = _extends$$1({}, lastIdealVelocity);
 	          }
 
 	          currentStyle[key] = styleValue;
@@ -8348,7 +7824,7 @@
 
 	exports.__esModule = true;
 
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	var _extends$$1 = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
@@ -8448,10 +7924,10 @@
 	            if (!dirty) {
 	              dirty = true;
 	              someDirty = true;
-	              currentStyles[i] = _extends({}, currentStyles[i]);
-	              currentVelocities[i] = _extends({}, currentVelocities[i]);
-	              lastIdealStyles[i] = _extends({}, lastIdealStyles[i]);
-	              lastIdealVelocities[i] = _extends({}, lastIdealVelocities[i]);
+	              currentStyles[i] = _extends$$1({}, currentStyles[i]);
+	              currentVelocities[i] = _extends$$1({}, currentVelocities[i]);
+	              lastIdealStyles[i] = _extends$$1({}, lastIdealStyles[i]);
+	              lastIdealVelocities[i] = _extends$$1({}, lastIdealVelocities[i]);
 	            }
 	            currentStyles[i][key] = styleValue;
 	            currentVelocities[i][key] = 0;
@@ -8734,7 +8210,7 @@
 
 	exports.__esModule = true;
 
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	var _extends$$1 = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
@@ -8973,14 +8449,14 @@
 	          if (typeof styleValue === 'number') {
 	            if (!dirty) {
 	              dirty = true;
-	              currentStyles[i] = _extends({}, currentStyles[i]);
-	              currentVelocities[i] = _extends({}, currentVelocities[i]);
-	              lastIdealStyles[i] = _extends({}, lastIdealStyles[i]);
-	              lastIdealVelocities[i] = _extends({}, lastIdealVelocities[i]);
+	              currentStyles[i] = _extends$$1({}, currentStyles[i]);
+	              currentVelocities[i] = _extends$$1({}, currentVelocities[i]);
+	              lastIdealStyles[i] = _extends$$1({}, lastIdealStyles[i]);
+	              lastIdealVelocities[i] = _extends$$1({}, lastIdealVelocities[i]);
 	              mergedPropsStyles[i] = {
 	                key: mergedPropsStyles[i].key,
 	                data: mergedPropsStyles[i].data,
-	                style: _extends({}, mergedPropsStyles[i].style)
+	                style: _extends$$1({}, mergedPropsStyles[i].style)
 	              };
 	            }
 	            currentStyles[i][key] = styleValue;
@@ -9274,7 +8750,7 @@
 
 	exports.__esModule = true;
 
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	var _extends$$1 = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	exports['default'] = spring;
 
@@ -9284,12 +8760,12 @@
 
 	var _presets2 = _interopRequireDefault(presets);
 
-	var defaultConfig = _extends({}, _presets2['default'].noWobble, {
+	var defaultConfig = _extends$$1({}, _presets2['default'].noWobble, {
 	  precision: 0.01
 	});
 
 	function spring(val, config) {
-	  return _extends({}, defaultConfig, config, { val: val });
+	  return _extends$$1({}, defaultConfig, config, { val: val });
 	}
 
 	module.exports = exports['default'];
@@ -9592,21 +9068,21 @@
 	});
 
 	var createScheduler = (function (callbacks) {
-	  var memoizedMove = index$1(function (x, y) {
+	  var memoizedMove = index$2(function (x, y) {
 	    var point = {
 	      x: x,
 	      y: y
 	    };
 	    callbacks.onMove(point);
 	  });
-	  var move = index$2(function (point) {
+	  var move = index$3(function (point) {
 	    return memoizedMove(point.x, point.y);
 	  });
-	  var moveUp = index$2(callbacks.onMoveUp);
-	  var moveDown = index$2(callbacks.onMoveDown);
-	  var moveRight = index$2(callbacks.onMoveRight);
-	  var moveLeft = index$2(callbacks.onMoveLeft);
-	  var windowScrollMove = index$2(callbacks.onWindowScroll);
+	  var moveUp = index$3(callbacks.onMoveUp);
+	  var moveDown = index$3(callbacks.onMoveDown);
+	  var moveRight = index$3(callbacks.onMoveRight);
+	  var moveLeft = index$3(callbacks.onMoveLeft);
+	  var windowScrollMove = index$3(callbacks.onWindowScroll);
 
 	  var cancel = function cancel() {
 	    move.cancel();
@@ -10592,7 +10068,7 @@
 	      });
 	    };
 
-	    _this.getProvided = index$1(function (isEnabled) {
+	    _this.getProvided = index$2(function (isEnabled) {
 	      if (!isEnabled) {
 	        return null;
 	      }
@@ -10872,7 +10348,7 @@
 	      return _this.ref;
 	    };
 
-	    _this.getDraggingStyle = index$1(function (change, dimension, isDropAnimating) {
+	    _this.getDraggingStyle = index$2(function (change, dimension, isDropAnimating) {
 	      var box = dimension.client;
 	      var style = {
 	        position: 'fixed',
@@ -10888,14 +10364,14 @@
 	      };
 	      return style;
 	    });
-	    _this.getNotDraggingStyle = index$1(function (current, shouldAnimateDisplacement) {
+	    _this.getNotDraggingStyle = index$2(function (current, shouldAnimateDisplacement) {
 	      var style = {
 	        transform: getTranslate(current),
 	        transition: shouldAnimateDisplacement ? null : 'none'
 	      };
 	      return style;
 	    });
-	    _this.getProvided = index$1(function (change, isDragging, isDropAnimating, shouldAnimateDisplacement, dimension, dragHandleProps) {
+	    _this.getProvided = index$2(function (change, isDragging, isDropAnimating, shouldAnimateDisplacement, dimension, dragHandleProps) {
 	      var useDraggingStyle = isDragging || isDropAnimating;
 
 	      var draggableStyle = function () {
@@ -10917,7 +10393,7 @@
 	      };
 	      return provided;
 	    });
-	    _this.getSnapshot = index$1(function (isDragging, isDropAnimating, draggingOver) {
+	    _this.getSnapshot = index$2(function (isDragging, isDropAnimating, draggingOver) {
 	      return {
 	        isDragging: isDragging || isDropAnimating,
 	        isDropAnimating: isDropAnimating,
@@ -11045,13 +10521,13 @@
 	  draggingOver: null
 	};
 	var makeMapStateToProps$1 = function makeMapStateToProps() {
-	  var memoizedOffset = index$1(function (x, y) {
+	  var memoizedOffset = index$2(function (x, y) {
 	    return {
 	      x: x,
 	      y: y
 	    };
 	  });
-	  var getNotDraggingProps = index$1(function (offset, shouldAnimateDisplacement) {
+	  var getNotDraggingProps = index$2(function (offset, shouldAnimateDisplacement) {
 	    return {
 	      isDropAnimating: false,
 	      isDragging: false,
@@ -11062,7 +10538,7 @@
 	      draggingOver: null
 	    };
 	  });
-	  var getDraggingProps = index$1(function (offset, shouldAnimateDragMovement, dimension, draggingOver) {
+	  var getDraggingProps = index$2(function (offset, shouldAnimateDragMovement, dimension, draggingOver) {
 	    return {
 	      isDragging: true,
 	      isDropAnimating: false,
