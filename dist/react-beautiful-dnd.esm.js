@@ -1,12 +1,10 @@
-import _extends from '@babel/runtime/helpers/es6/extends';
+import _extends from '@babel/runtime/helpers/esm/extends';
 import invariant from 'tiny-invariant';
 import { getRect, getBox, withScroll, createBox, calculateBox } from 'css-box-model';
-import _Object$keys from '@babel/runtime/core-js/object/keys';
 import memoizeOne from 'memoize-one';
 import { applyMiddleware, createStore, compose, bindActionCreators } from 'redux';
-import _Object$assign from '@babel/runtime/core-js/object/assign';
 import rafSchd from 'raf-schd';
-import _inheritsLoose from '@babel/runtime/helpers/es6/inheritsLoose';
+import _inheritsLoose from '@babel/runtime/helpers/esm/inheritsLoose';
 import React, { Component, PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -255,12 +253,12 @@ var toDraggableMap = memoizeOne(function (draggables) {
   }, {});
 });
 var toDroppableList = memoizeOne(function (droppables) {
-  return _Object$keys(droppables).map(function (id) {
+  return Object.keys(droppables).map(function (id) {
     return droppables[id];
   });
 });
 var toDraggableList = memoizeOne(function (draggables) {
-  return _Object$keys(draggables).map(function (id) {
+  return Object.keys(draggables).map(function (id) {
     return draggables[id];
   });
 });
@@ -556,11 +554,22 @@ var inHomeList = (function (_ref) {
         return false;
       }
 
+      if (draggable.page.borderBox.height > borderBox.height) {
+        var leadingEdge = currentCenter[axis.line] + draggable.page.borderBox.height / 2;
+        return leadingEdge > borderBox.center[axis.line];
+      }
+
       return currentCenter[axis.line] > borderBox[axis.start];
     }
 
     if (originalCenter[axis.line] < borderBox.center[axis.line]) {
       return false;
+    }
+
+    if (draggable.page.borderBox.height > borderBox.height) {
+      var _leadingEdge = currentCenter[axis.line] - draggable.page.borderBox.height / 2;
+
+      return _leadingEdge < borderBox.center[axis.line];
     }
 
     return currentCenter[axis.line] < borderBox[axis.end];
@@ -2778,23 +2787,20 @@ var createPublisher = (function (_ref) {
           collection = _getProvided.collection;
 
       var windowScroll = collection.initialWindowScroll;
-
-      var draggables = _Object$keys(additions.draggables).map(function (id) {
+      var draggables = Object.keys(additions.draggables).map(function (id) {
         return entries.draggables[id].getDimension(windowScroll);
       });
-
-      var droppables = _Object$keys(additions.droppables).map(function (id) {
+      var droppables = Object.keys(additions.droppables).map(function (id) {
         return entries.droppables[id].callbacks.getDimensionAndWatchScroll(windowScroll, collection.scrollOptions);
       });
-
       var result = {
         additions: {
           draggables: draggables,
           droppables: droppables
         },
         removals: {
-          draggables: _Object$keys(removals.draggables),
-          droppables: _Object$keys(removals.droppables)
+          draggables: Object.keys(removals.draggables),
+          droppables: Object.keys(removals.droppables)
         }
       };
       reset();
@@ -3032,8 +3038,7 @@ var createDimensionMarshal = (function (callbacks) {
     var timingKey = 'Initial collection from DOM';
     start(timingKey);
     var home = critical.droppable;
-
-    var droppables = _Object$keys(entries.droppables).map(function (id) {
+    var droppables = Object.keys(entries.droppables).map(function (id) {
       return entries.droppables[id];
     }).filter(function (entry) {
       return entry.descriptor.type === home.type;
@@ -3043,8 +3048,7 @@ var createDimensionMarshal = (function (callbacks) {
       previous[dimension.descriptor.id] = dimension;
       return previous;
     }, {});
-
-    var draggables = _Object$keys(entries.draggables).map(function (id) {
+    var draggables = Object.keys(entries.draggables).map(function (id) {
       return entries.draggables[id];
     }).filter(function (entry) {
       return entry.descriptor.type === critical.draggable.type;
@@ -3054,7 +3058,6 @@ var createDimensionMarshal = (function (callbacks) {
       previous[dimension.descriptor.id] = dimension;
       return previous;
     }, {});
-
     finish(timingKey);
     var dimensions = {
       draggables: draggables,
@@ -3074,13 +3077,11 @@ var createDimensionMarshal = (function (callbacks) {
 
     publisher.stop();
     var home = collection.critical.droppable;
-
-    _Object$keys(entries.droppables).filter(function (id) {
+    Object.keys(entries.droppables).filter(function (id) {
       return entries.droppables[id].descriptor.type === home.type;
     }).forEach(function (id) {
       return entries.droppables[id].callbacks.unwatchScroll();
     });
-
     collection = null;
   };
 
@@ -3300,9 +3301,7 @@ var createAnnouncer = (function () {
     el.setAttribute('aria-live', 'assertive');
     el.setAttribute('role', 'log');
     el.setAttribute('aria-atomic', 'true');
-
-    _Object$assign(el.style, visuallyHidden);
-
+    Object.assign(el.style, visuallyHidden);
     getBody().appendChild(el);
   };
 
