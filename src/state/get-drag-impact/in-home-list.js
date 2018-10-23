@@ -66,11 +66,20 @@ export default ({
 
         const borderBox: Rect = child.page.borderBox;
 
+        // We want to compare the leading edge of the taller block to the
+        // center of the shorter block.
+
         if (isBeyondStartPosition) {
           // 1. item needs to start ahead of the moving item
           // 2. the dragging item has moved over it
           if (borderBox.center[axis.line] < originalCenter[axis.line]) {
             return false;
+          }
+
+          if (draggable.page.borderBox.height > borderBox.height) {
+            const leadingEdge =
+              currentCenter[axis.line] + draggable.page.borderBox.height / 2;
+            return leadingEdge > borderBox.center[axis.line];
           }
 
           return currentCenter[axis.line] > borderBox[axis.start];
@@ -80,6 +89,12 @@ export default ({
         // 2. the dragging item has moved over it
         if (originalCenter[axis.line] < borderBox.center[axis.line]) {
           return false;
+        }
+
+        if (draggable.page.borderBox.height > borderBox.height) {
+          const leadingEdge =
+            currentCenter[axis.line] - draggable.page.borderBox.height / 2;
+          return leadingEdge < borderBox.center[axis.line];
         }
 
         return currentCenter[axis.line] < borderBox[axis.end];

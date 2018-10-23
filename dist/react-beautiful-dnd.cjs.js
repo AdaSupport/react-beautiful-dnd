@@ -563,11 +563,22 @@ var inHomeList = (function (_ref) {
         return false;
       }
 
+      if (draggable.page.borderBox.height > borderBox.height) {
+        var leadingEdge = currentCenter[axis.line] + draggable.page.borderBox.height / 2;
+        return leadingEdge > borderBox.center[axis.line];
+      }
+
       return currentCenter[axis.line] > borderBox[axis.start];
     }
 
     if (originalCenter[axis.line] < borderBox.center[axis.line]) {
       return false;
+    }
+
+    if (draggable.page.borderBox.height > borderBox.height) {
+      var _leadingEdge = currentCenter[axis.line] - draggable.page.borderBox.height / 2;
+
+      return _leadingEdge < borderBox.center[axis.line];
     }
 
     return currentCenter[axis.line] < borderBox[axis.end];
